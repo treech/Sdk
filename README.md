@@ -53,7 +53,7 @@
 ```groovy
 dependencies {
 	        implementation 'com.ygq.sdk:multistatelayout:1.0.0-alpha01'
-	}
+}
 ```
 
 
@@ -85,7 +85,7 @@ dependencies {
 在需要使用状态布局的布局中添加（下面的代码都以`FrameStateLayout`为例）：
 
 ```xml
-<com.lindroy.multistatelayout.widget.FrameStateLayout                                                  	 xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ygq.sdk.widget.FrameStateLayout                                                  	 xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
@@ -100,7 +100,7 @@ dependencies {
         android:textSize="20sp"
         />
     
-</com.lindroy.multistatelayout.widget.FrameStateLayout>
+</com.ygq.sdk.widget.FrameStateLayout>
 ```
 
 然后在代码中调用即可：
@@ -126,7 +126,7 @@ dependencies {
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<com.lindroy.multistatelayout.widget.FrameStateLayout
+<com.ygq.sdk.widget.FrameStateLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -146,7 +146,7 @@ dependencies {
         android:text="我是内容视图"
         android:textSize="20sp" />
 
-</com.lindroy.multistatelayout.widget.FrameStateLayout>
+</com.ygq.sdk.widget.FrameStateLayout>
 ```
 
 或者在相应的方法中设置参数，比如需要修改加载中视图的布局并设置提示文字：

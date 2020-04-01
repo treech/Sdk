@@ -52,7 +52,7 @@
 #### 1.2 添加如下依赖
 ```groovy
 dependencies {
-	        implementation 'com.ygq.sdk:multistatelayout:1.0.0-alpha01'
+	        implementation 'com.ygq.sdk:multistatelayout:1.0.0-alpha02'
 }
 ```
 

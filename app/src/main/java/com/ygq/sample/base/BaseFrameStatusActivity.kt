@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.ygq.sample.R
 import kotlinx.android.synthetic.main.activity_sample.*
 
-abstract class BaseFrameStatusActivity: BaseMenuActivity() {
+abstract class BaseFrameStatusActivity : BaseMenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

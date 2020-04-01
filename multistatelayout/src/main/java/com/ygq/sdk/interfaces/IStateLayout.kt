@@ -282,9 +282,9 @@ internal interface IStateLayout {
      * 显示失败视图
      * @param isNoNetwork:是否是断网状态
      */
-    fun showFailedView(isNoNetwork:Boolean) = when(isNoNetwork){
-        true-> showNoNetwork()
-        false-> showError()
+    fun showFailedView(isNoNetwork: Boolean) = when (isNoNetwork) {
+        true -> showNoNetwork()
+        false -> showError()
     }
 
     /**

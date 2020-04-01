@@ -30,17 +30,24 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
     ) : super(context, attrs, defStyleAttr) {
-        context.obtainStyledAttributes(attrs, R.styleable.LinearStateLayout, defStyleAttr, 0).apply {
-            emptyInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_emptyView, emptyInfo.layoutId)
-            loadingInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_loadingView, loadingInfo.layoutId)
-            errorInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_errorView, errorInfo.layoutId)
-            noNetworkInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
-            recycle()
-        }
+        context.obtainStyledAttributes(attrs, R.styleable.LinearStateLayout, defStyleAttr, 0)
+            .apply {
+                emptyInfo.layoutId =
+                    getResourceId(R.styleable.LinearStateLayout_msl_emptyView, emptyInfo.layoutId)
+                loadingInfo.layoutId =
+                    getResourceId(
+                        R.styleable.LinearStateLayout_msl_loadingView,
+                        loadingInfo.layoutId
+                    )
+                errorInfo.layoutId =
+                    getResourceId(R.styleable.LinearStateLayout_msl_errorView, errorInfo.layoutId)
+                noNetworkInfo.layoutId =
+                    getResourceId(
+                        R.styleable.LinearStateLayout_msl_noNetworkView,
+                        noNetworkInfo.layoutId
+                    )
+                recycle()
+            }
     }
 
     override fun showContent() = showContentView()
@@ -71,7 +78,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showEmptyView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showEmptyView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showError(
         view: View?,
@@ -87,7 +94,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText ,* clickViewIds)
+    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText, * clickViewIds)
 
     override fun showNoNetwork(
         view: View?,
@@ -95,7 +102,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showNoNetwork(
         layoutId: Int,
@@ -103,7 +110,13 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(
+        context.inflateView(layoutId),
+        layoutParams,
+        hintTextId,
+        hintText,
+        *clickViewIds
+    )
 
     override fun showStateView(state: Int) =
         showStateLayout(state)

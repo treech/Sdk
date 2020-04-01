@@ -99,7 +99,11 @@ class MultiStateLayout internal constructor() {
      * @param layoutId:布局Id
      * @param clickViewIds:需要设置点击事件的控件Id
      */
-    fun addStateView(@IntRange(from = 5L)  state: Int, @LayoutRes layoutId: Int, @IdRes vararg clickViewIds: Int) =
+    fun addStateView(
+        @IntRange(from = 5L) state: Int,
+        @LayoutRes layoutId: Int,
+        @IdRes vararg clickViewIds: Int
+    ) =
         addStateViewToList(state, layoutId, clickViewIds = *clickViewIds)
 
     internal fun getStateView(status: Int) = stateViewList.firstOrNull { it.state == status }

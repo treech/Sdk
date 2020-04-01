@@ -45,8 +45,8 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-   <style name="ItemTextStyle" parent="TextViewStyle">
-       <item name="android:minHeight">50dp</item>
-   </style>
+    <style name="ItemTextStyle" parent="TextViewStyle">
+        <item name="android:minHeight">50dp</item>
+    </style>
 
 </resources>

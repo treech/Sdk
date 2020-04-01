@@ -38,7 +38,10 @@ class FrameStateLayout : FrameLayout, IStateLayout {
             errorInfo.layoutId =
                 getResourceId(R.styleable.FrameStateLayout_msl_errorView, errorInfo.layoutId)
             noNetworkInfo.layoutId =
-                getResourceId(R.styleable.FrameStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
+                getResourceId(
+                    R.styleable.FrameStateLayout_msl_noNetworkView,
+                    noNetworkInfo.layoutId
+                )
             recycle()
         }
     }
@@ -95,7 +98,7 @@ class FrameStateLayout : FrameLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText ,* clickViewIds)
+    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText, * clickViewIds)
 
     override fun showNoNetwork(
         view: View?,
@@ -103,7 +106,7 @@ class FrameStateLayout : FrameLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showNoNetwork(
         layoutId: Int,
@@ -111,7 +114,13 @@ class FrameStateLayout : FrameLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(
+        context.inflateView(layoutId),
+        layoutParams,
+        hintTextId,
+        hintText,
+        *clickViewIds
+    )
 
     override fun showStateView(state: Int) =
         showStateLayout(state)

@@ -30,17 +30,30 @@ class ConstraintStateLayout : ConstraintLayout, IStateLayout {
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
     ) : super(context, attrs, defStyleAttr) {
-        context.obtainStyledAttributes(attrs, R.styleable.ConstraintStateLayout, defStyleAttr, 0).apply {
-            emptyInfo.layoutId =
-                getResourceId(R.styleable.ConstraintStateLayout_msl_emptyView, emptyInfo.layoutId)
-            loadingInfo.layoutId =
-                getResourceId(R.styleable.ConstraintStateLayout_msl_loadingView, loadingInfo.layoutId)
-            errorInfo.layoutId =
-                getResourceId(R.styleable.ConstraintStateLayout_msl_errorView, errorInfo.layoutId)
-            noNetworkInfo.layoutId =
-                getResourceId(R.styleable.ConstraintStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
-            recycle()
-        }
+        context.obtainStyledAttributes(attrs, R.styleable.ConstraintStateLayout, defStyleAttr, 0)
+            .apply {
+                emptyInfo.layoutId =
+                    getResourceId(
+                        R.styleable.ConstraintStateLayout_msl_emptyView,
+                        emptyInfo.layoutId
+                    )
+                loadingInfo.layoutId =
+                    getResourceId(
+                        R.styleable.ConstraintStateLayout_msl_loadingView,
+                        loadingInfo.layoutId
+                    )
+                errorInfo.layoutId =
+                    getResourceId(
+                        R.styleable.ConstraintStateLayout_msl_errorView,
+                        errorInfo.layoutId
+                    )
+                noNetworkInfo.layoutId =
+                    getResourceId(
+                        R.styleable.ConstraintStateLayout_msl_noNetworkView,
+                        noNetworkInfo.layoutId
+                    )
+                recycle()
+            }
     }
 
     override fun showContent() = showContentView()
@@ -87,7 +100,7 @@ class ConstraintStateLayout : ConstraintLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showErrorView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showErrorView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showError(
         layoutId: Int,
@@ -95,7 +108,7 @@ class ConstraintStateLayout : ConstraintLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showError(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showNoNetwork(
         view: View?,
@@ -103,7 +116,7 @@ class ConstraintStateLayout : ConstraintLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showNoNetwork(
         layoutId: Int,
@@ -111,7 +124,13 @@ class ConstraintStateLayout : ConstraintLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showNoNetworkView(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showNoNetworkView(
+        context.inflateView(layoutId),
+        layoutParams,
+        hintTextId,
+        hintText,
+        *clickViewIds
+    )
 
     override fun showStateView(state: Int) = showStateLayout(state)
 

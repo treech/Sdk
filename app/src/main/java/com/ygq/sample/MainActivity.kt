@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startActivity(cls: Class<*>?){
-        startActivity(Intent(this,cls))
+    private fun startActivity(cls: Class<*>?) {
+        startActivity(Intent(this, cls))
 
     }
 

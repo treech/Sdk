@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ygq.sdk.widget.FrameStateLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ygq.sdk.widget.FrameStateLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:msl_loadingView="@layout/state_view_loading"
     app:msl_emptyView="@layout/state_view_empty"
     app:msl_errorView="@layout/state_view_error"
+    app:msl_loadingView="@layout/state_view_loading"
     app:msl_noNetworkView="@layout/state_view_no_network"
     tools:context=".FrameStateActivity">
 

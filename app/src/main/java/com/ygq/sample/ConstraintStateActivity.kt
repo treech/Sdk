@@ -30,8 +30,8 @@ class ConstraintStateActivity : BaseMenuActivity() {
             MENU_LOADING -> stateLayout.showLoading()
             MENU_ERROR -> stateLayout.showError()
             MENU_NO_NETWORK -> stateLayout.showNoNetwork()
-            MENU_NEED_LOGIN ->stateLayout.showStateView(STATE_NEED_LOGIN)
-            MENU_NO_COUPON ->stateLayout.showStateView(STATE_NO_COUPON)
+            MENU_NEED_LOGIN -> stateLayout.showStateView(STATE_NEED_LOGIN)
+            MENU_NO_COUPON -> stateLayout.showStateView(STATE_NO_COUPON)
         }
     }
 }

@@ -12,16 +12,16 @@ class FrameStateActivity : BaseFrameStatusActivity() {
     override fun showContent() {
         //显示内容视图
         stateLayout.showContent()
-      /*  //显示加载中视图
-        stateLayout.showLoading()
-        //显示空数据视图
-        stateLayout.showEmpty()
-        //显示断网视图
-        stateLayout.showNoNetwork()
-        //显示错误视图
-        stateLayout.showError()
-        //获取当前的视图状态
-        stateLayout.currentState*/
+        /*  //显示加载中视图
+          stateLayout.showLoading()
+          //显示空数据视图
+          stateLayout.showEmpty()
+          //显示断网视图
+          stateLayout.showNoNetwork()
+          //显示错误视图
+          stateLayout.showError()
+          //获取当前的视图状态
+          stateLayout.currentState*/
     }
 
     override fun onMenuItemClickListener(id: Int) {

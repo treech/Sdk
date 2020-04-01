@@ -22,8 +22,8 @@ class LinearStateActivity : BaseMenuActivity() {
             MENU_LOADING -> linearStateView.showLoading()
             MENU_ERROR -> linearStateView.showError()
             MENU_NO_NETWORK -> linearStateView.showNoNetwork()
-            MENU_NEED_LOGIN->linearStateView.showStateView(STATE_NEED_LOGIN)
-            MENU_NO_COUPON->linearStateView.showStateView(STATE_NO_COUPON)
+            MENU_NEED_LOGIN -> linearStateView.showStateView(STATE_NEED_LOGIN)
+            MENU_NO_COUPON -> linearStateView.showStateView(STATE_NO_COUPON)
         }
     }
 

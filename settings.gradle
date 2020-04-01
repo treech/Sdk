@@ -1,2 +1,2 @@
 include ':app', ':multistatelayout'
-rootProject.name='MultiStateLayout'
+rootProject.name = 'MultiStateLayout'

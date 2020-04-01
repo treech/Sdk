@@ -30,13 +30,14 @@ abstract class BaseMenuActivity : AppCompatActivity() {
                 }, 2000)
             }
             R.id.btnLogin -> Toast.makeText(this, "点击登录", Toast.LENGTH_LONG).show()
-            R.id.ivEmpty-> Toast.makeText(this, "没有数据啦", Toast.LENGTH_LONG).show()
+            R.id.ivEmpty -> Toast.makeText(this, "没有数据啦", Toast.LENGTH_LONG).show()
         }
     }
 
-    protected val statusChangeListener: (oldStatus: Int, curStatus: Int) -> Unit = { oldStatus, curStatus ->
-        Log.d(com.ygq.sample.TAG, "oldStatus=$oldStatus,newStatus=$curStatus")
-    }
+    protected val statusChangeListener: (oldStatus: Int, curStatus: Int) -> Unit =
+        { oldStatus, curStatus ->
+            Log.d(com.ygq.sample.TAG, "oldStatus=$oldStatus,newStatus=$curStatus")
+        }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.add(0, MENU_CONTENT, 1, "内容视图")

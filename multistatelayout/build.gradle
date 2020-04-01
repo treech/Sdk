@@ -71,7 +71,7 @@ ext {
     artifactId = 'multistatelayout'
     desc = 'sdk for multistatelayout library'
     webUrl = 'https://github.com/yeguoqiang/Sdk'
-    publishVersion = "${versionMajor}.${versionMinor}.${versionPatch}-alpha01"
+    publishVersion = "${versionMajor}.${versionMinor}.${versionPatch}-alpha02"
     aarArchiveName = "${archiveBaseName}-${publishVersion}"
 }
 

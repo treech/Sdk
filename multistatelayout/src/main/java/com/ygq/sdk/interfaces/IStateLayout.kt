@@ -307,7 +307,6 @@ internal interface IStateLayout {
     fun setOnViewsClickListener(clickListener: (state: Int, view: View) -> Unit) {
         this.clickListener = clickListener
     }
-    //endregion
 
     fun ViewGroup.showLoadingView(
         view: View?,

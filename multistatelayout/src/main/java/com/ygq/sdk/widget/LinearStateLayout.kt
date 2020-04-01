@@ -126,8 +126,8 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         showContent()
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        clear()
-    }
+//    override fun onDetachedFromWindow() {
+//        super.onDetachedFromWindow()
+//        clear()
+//    }
 }

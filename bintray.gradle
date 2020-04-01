@@ -1,0 +1,185 @@
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
+
+
+task binaryJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
+
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+
+    def javaClassDir = [project.buildDir.absolutePath + "/intermediates/javac/release/classes"]
+    def kotlinClassDir = [project.buildDir.absolutePath + "/tmp/kotlin-classes/release"]
+    from javaClassDir, kotlinClassDir
+
+    exclude "**/BuildConfig.class"
+    exclude "**/R.class"
+    exclude "**/R\$*.class"
+}
+
+task sourcesJar(dependsOn: ['assembleRelease'], type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+    from javadoc.destinationDir
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('docencoding', 'UTF-8')
+    options.addStringOption('charset', 'UTF-8')
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// Create the pom configuration:
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id 'yeguoqiang'
+            name 'yeguoqiang'
+            email 'yeguoqiang6@outlook.com'
+        }
+    }
+    scm {
+        url project.webUrl
+    }
+}
+
+publish {
+    userOrg = project.userOrg
+    repoName = project.repoName
+    groupId = project.groupId
+    artifactId = project.artifactId
+    publishVersion = project.publishVersion
+    //noinspection GroovyAccessibility
+    licences = ['Apache-2.0']
+    desc = project.desc
+    website = project.webUrl
+    issueTracker = "${website}/issues"
+    repository = "${website}.git"
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+    dryRun = false
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.publish.groupId
+                artifactId project.publish.artifactId
+                version project.publish.publishVersion
+
+                afterEvaluate {
+                    artifact("${project.buildDir.absolutePath}/outputs/aar/${project.aarArchiveName}.aar")
+                    artifact(sourcesJar)
+                    artifact(javadocJar)
+                }
+
+                pom {
+                    packaging 'aar'
+                }
+
+                pom.withXml {
+                    def root = asNode()
+                    root.appendNode('description', project.desc)
+                    root.appendNode('name', project.name)
+                    root.appendNode('url', project.webUrl)
+
+                    // Define this explicitly if using implementation or api configurations
+                    def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+
+                    configurations.compile.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            println("compile $it.group:$it.name:$it.version")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'compile')
+                        }
+                    }
+
+                    configurations.implementation.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            println("implementation $it.group:$it.name:$it.version")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'compile')
+                        }
+                    }
+
+                    configurations.api.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            println("api $it.group:$it.name:$it.version")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'compile')
+                        }
+                    }
+
+                    configurations.compileOnly.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            println("compileOnly $it.group:$it.name:$it.version")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'provided')
+                        }
+                    }
+
+                    configurations.runtimeOnly.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            println("runtimeOnly $it.group:$it.name:$it.version")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'runtime')
+                        }
+                    }
+
+                    root.children().last() + pomConfig
+                }
+            }
+        }
+    }
+
+
+    //noinspection GroovyAccessibility
+    publications = ['maven']
+}

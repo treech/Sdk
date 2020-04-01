@@ -1,0 +1,68 @@
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
+
+
+task binaryJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
+
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+
+    def javaClassDir = [project.buildDir.absolutePath + "/intermediates/javac/release/classes"]
+    def kotlinClassDir = [project.buildDir.absolutePath + "/tmp/kotlin-classes/release"]
+    from javaClassDir, kotlinClassDir
+
+    exclude "**/BuildConfig.class"
+    exclude "**/R.class"
+    exclude "**/R\$*.class"
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    baseName = project.archiveBaseName
+    version = project.publishVersion
+    from javadoc.destinationDir
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('docencoding', 'UTF-8')
+    options.addStringOption('charset', 'UTF-8')
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+publish {
+    userOrg = project.userOrg
+    repoName = project.repoName
+    groupId = project.groupId
+    artifactId = project.artifactId
+    publishVersion = project.publishVersion
+    //noinspection GroovyAccessibility
+    licences = ['Apache-2.0']
+    desc = project.desc
+    website = project.webUrl
+    issueTracker = "${website}/issues"
+    repository = "${website}.git"
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+    dryRun = false
+}

@@ -1,10 +1,10 @@
-package com.ygq.multistatelayout
+package com.ygq.sdk
 
 import androidx.annotation.IdRes
 import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
-import com.ygq.multistatelayout.bean.StateInfo
-import com.ygq.multistatelayout.constants.NULL_RESOURCE_ID
+import com.ygq.sdk.bean.StateInfo
+import com.ygq.sdk.constants.NULL_RESOURCE_ID
 
 class MultiStateLayout internal constructor() {
 

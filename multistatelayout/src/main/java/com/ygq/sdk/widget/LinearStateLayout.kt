@@ -1,19 +1,20 @@
-package com.ygq.multistatelayout.widget
+package com.ygq.sdk.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.IdRes
-import com.ygq.multistatelayout.R
-import com.ygq.multistatelayout.interfaces.IStateLayout
-import com.ygq.multistatelayout.util.inflateView
+import androidx.appcompat.widget.LinearLayoutCompat
+import com.ygq.sdk.R
+import com.ygq.sdk.constants.STATE_CONTENT
+import com.ygq.sdk.interfaces.IStateLayout
+import com.ygq.sdk.util.inflateView
 
-class FrameStateLayout : FrameLayout, IStateLayout {
+class LinearStateLayout : LinearLayoutCompat, IStateLayout {
 
-    override var currentState: Int = com.ygq.multistatelayout.constants.STATE_CONTENT
+    override var currentState: Int = STATE_CONTENT
     override var viewStateListener: ((formerState: Int, curState: Int) -> Unit)? = null
     override var clickListener: ((state: Int, view: View) -> Unit)? = null
     override val viewTags: ArrayList<Int> = arrayListOf()
@@ -22,23 +23,22 @@ class FrameStateLayout : FrameLayout, IStateLayout {
     override var errorView: View? = null
     override var noNetworkView: View? = null
 
-
     @SuppressLint("CustomViewStyleable")
     @JvmOverloads
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        context.obtainStyledAttributes(attrs, R.styleable.FrameStateLayout, defStyleAttr, 0).apply {
+    constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+    ) : super(context, attrs, defStyleAttr) {
+        context.obtainStyledAttributes(attrs, R.styleable.LinearStateLayout, defStyleAttr, 0).apply {
             emptyInfo.layoutId =
-                getResourceId(R.styleable.FrameStateLayout_msl_emptyView, emptyInfo.layoutId)
+                getResourceId(R.styleable.LinearStateLayout_msl_emptyView, emptyInfo.layoutId)
             loadingInfo.layoutId =
-                getResourceId(R.styleable.FrameStateLayout_msl_loadingView, loadingInfo.layoutId)
+                getResourceId(R.styleable.LinearStateLayout_msl_loadingView, loadingInfo.layoutId)
             errorInfo.layoutId =
-                getResourceId(R.styleable.FrameStateLayout_msl_errorView, errorInfo.layoutId)
+                getResourceId(R.styleable.LinearStateLayout_msl_errorView, errorInfo.layoutId)
             noNetworkInfo.layoutId =
-                getResourceId(R.styleable.FrameStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
+                getResourceId(R.styleable.LinearStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
             recycle()
         }
     }
@@ -47,15 +47,13 @@ class FrameStateLayout : FrameLayout, IStateLayout {
 
     override fun showLoading(
         view: View?,
-        layoutParams: ViewGroup.LayoutParams,
-        @IdRes hintTextId: Int,
+        layoutParams: ViewGroup.LayoutParams, @IdRes hintTextId: Int,
         hintText: String?
     ) = showLoadingView(view, layoutParams, hintTextId, hintText)
 
     override fun showLoading(
         layoutId: Int,
-        layoutParams: ViewGroup.LayoutParams,
-        @IdRes hintTextId: Int,
+        layoutParams: ViewGroup.LayoutParams, @IdRes hintTextId: Int,
         hintText: String?
     ) = showLoadingView(context.inflateView(layoutId), layoutParams, hintTextId, hintText)
 
@@ -65,13 +63,7 @@ class FrameStateLayout : FrameLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showEmptyView(
-        context.inflateView(layoutId),
-        layoutParams,
-        hintTextId,
-        hintText,
-        *clickViewIds
-    )
+    ) = showEmptyView(context.inflateView(layoutId), layoutParams)
 
     override fun showEmpty(
         view: View?,
@@ -79,7 +71,7 @@ class FrameStateLayout : FrameLayout, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showEmptyView(view, layoutParams, hintTextId, hintText, *clickViewIds)
+    ) = showEmptyView(view, layoutParams,hintTextId,hintText, *clickViewIds)
 
     override fun showError(
         view: View?,

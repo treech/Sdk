@@ -64,9 +64,10 @@ dependencies {
 
 ext {
     archiveBaseName = 'multistatelayout'
-    userOrg = 'yeguoqiang'
+    userOrg = 'yeguoqiang6'
     repoName = 'maven'
     groupId = 'com.ygq.sdk'
+    //package name
     artifactId = 'multistatelayout'
     desc = 'sdk for multistatelayout library'
     webUrl = 'https://github.com/yeguoqiang/Sdk'

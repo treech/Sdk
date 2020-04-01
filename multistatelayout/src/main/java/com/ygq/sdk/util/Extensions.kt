@@ -1,4 +1,4 @@
-package com.ygq.multistatelayout.util
+package com.ygq.sdk.util
 
 import android.content.Context
 import android.view.LayoutInflater

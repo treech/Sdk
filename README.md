@@ -1,7 +1,5 @@
 # MultiStateLayout
 
-[![](https://jitpack.io/v/lindroy/MultiStateLayout.svg)](https://jitpack.io/#lindroy/MultiStateLayout)
-
 
 使用`Kotlin`编写的灵活易用的多状态布局。除了基本的内容视图、加载中视图、空数据视图、网络断开视图和错误视图外，也可以任意添加自定义的状态视图。
 
@@ -54,7 +52,7 @@
 #### 1.2 添加如下依赖
 ```groovy
 dependencies {
-	        implementation 'com.github.lindroy:MultiStateLayout:v0.0.1-beta'
+	        implementation 'com.ygq.sdk:multistatelayout:1.0.0-alpha01'
 	}
 ```
 

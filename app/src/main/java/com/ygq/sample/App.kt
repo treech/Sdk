@@ -1,7 +1,7 @@
 package com.ygq.sample
 
 import android.app.Application
-import com.ygq.multistatelayout.MultiStateLayout
+import com.ygq.sdk.MultiStateLayout
 import com.ygq.sample.constants.STATE_NEED_LOGIN
 import com.ygq.sample.constants.STATE_NO_COUPON
 

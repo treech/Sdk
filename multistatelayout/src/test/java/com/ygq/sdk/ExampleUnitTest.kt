@@ -1,4 +1,4 @@
-package com.ygq.multistatelayout
+package com.ygq.sdk
 
 import org.junit.Test
 

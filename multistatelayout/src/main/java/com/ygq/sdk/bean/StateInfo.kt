@@ -1,8 +1,8 @@
-package com.ygq.multistatelayout.bean
+package com.ygq.sdk.bean
 
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import com.ygq.multistatelayout.constants.NULL_RESOURCE_ID
+import com.ygq.sdk.constants.NULL_RESOURCE_ID
 
 data class StateInfo(
     val state: Int = -1,   //视图状态

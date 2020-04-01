@@ -1,4 +1,4 @@
-package com.ygq.multistatelayout.interfaces
+package com.ygq.sdk.interfaces
 
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.core.view.children
-import com.ygq.multistatelayout.MultiStateLayout
-import com.ygq.multistatelayout.constants.*
-import com.ygq.multistatelayout.util.inflateView
+import com.ygq.sdk.MultiStateLayout
+import com.ygq.sdk.constants.*
+import com.ygq.sdk.util.inflateView
 
 internal interface IStateLayout {
 

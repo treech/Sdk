@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ygq.multistatelayout.widget.LinearStateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ygq.sdk.widget.LinearStateLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,4 +20,4 @@
     <TextView
         android:text="三国演义"
         style="@style/ItemTextStyle"/>
-</com.ygq.multistatelayout.widget.LinearStateLayout>
+</com.ygq.sdk.widget.LinearStateLayout>

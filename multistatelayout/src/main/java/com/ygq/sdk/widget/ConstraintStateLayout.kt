@@ -1,4 +1,4 @@
-package com.ygq.multistatelayout.widget
+package com.ygq.sdk.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,18 +6,18 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
-import androidx.appcompat.widget.LinearLayoutCompat
-import com.ygq.multistatelayout.R
-import com.ygq.multistatelayout.constants.STATE_CONTENT
-import com.ygq.multistatelayout.interfaces.IStateLayout
-import com.ygq.multistatelayout.util.inflateView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.ygq.sdk.R
+import com.ygq.sdk.constants.STATE_CONTENT
+import com.ygq.sdk.interfaces.IStateLayout
+import com.ygq.sdk.util.inflateView
 
-class LinearStateLayout : LinearLayoutCompat, IStateLayout {
+class ConstraintStateLayout : ConstraintLayout, IStateLayout {
 
     override var currentState: Int = STATE_CONTENT
-    override var viewStateListener: ((formerState: Int, curState: Int) -> Unit)? = null
-    override var clickListener: ((state: Int, view: View) -> Unit)? = null
     override val viewTags: ArrayList<Int> = arrayListOf()
+    override var viewStateListener: ((formerState: Int, curState: Int) -> Unit)? = null
+    override var clickListener: ((status: Int, view: View) -> Unit)? = null
     override var emptyView: View? = null
     override var loadingView: View? = null
     override var errorView: View? = null
@@ -30,15 +30,15 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
     ) : super(context, attrs, defStyleAttr) {
-        context.obtainStyledAttributes(attrs, R.styleable.LinearStateLayout, defStyleAttr, 0).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.ConstraintStateLayout, defStyleAttr, 0).apply {
             emptyInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_emptyView, emptyInfo.layoutId)
+                getResourceId(R.styleable.ConstraintStateLayout_msl_emptyView, emptyInfo.layoutId)
             loadingInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_loadingView, loadingInfo.layoutId)
+                getResourceId(R.styleable.ConstraintStateLayout_msl_loadingView, loadingInfo.layoutId)
             errorInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_errorView, errorInfo.layoutId)
+                getResourceId(R.styleable.ConstraintStateLayout_msl_errorView, errorInfo.layoutId)
             noNetworkInfo.layoutId =
-                getResourceId(R.styleable.LinearStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
+                getResourceId(R.styleable.ConstraintStateLayout_msl_noNetworkView, noNetworkInfo.layoutId)
             recycle()
         }
     }
@@ -47,13 +47,15 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
 
     override fun showLoading(
         view: View?,
-        layoutParams: ViewGroup.LayoutParams, @IdRes hintTextId: Int,
+        layoutParams: ViewGroup.LayoutParams,
+        @IdRes hintTextId: Int,
         hintText: String?
     ) = showLoadingView(view, layoutParams, hintTextId, hintText)
 
     override fun showLoading(
         layoutId: Int,
-        layoutParams: ViewGroup.LayoutParams, @IdRes hintTextId: Int,
+        layoutParams: ViewGroup.LayoutParams,
+        @IdRes hintTextId: Int,
         hintText: String?
     ) = showLoadingView(context.inflateView(layoutId), layoutParams, hintTextId, hintText)
 
@@ -63,7 +65,13 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showEmptyView(context.inflateView(layoutId), layoutParams)
+    ) = showEmptyView(
+        context.inflateView(layoutId),
+        layoutParams,
+        hintTextId,
+        hintText,
+        *clickViewIds
+    )
 
     override fun showEmpty(
         view: View?,
@@ -71,7 +79,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showEmptyView(view, layoutParams,hintTextId,hintText, *clickViewIds)
+    ) = showEmptyView(view, layoutParams, hintTextId, hintText, *clickViewIds)
 
     override fun showError(
         view: View?,
@@ -79,7 +87,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showErrorView(view, layoutParams, hintTextId, hintText, *clickViewIds)
+    ) = showErrorView(view, layoutParams,hintTextId,hintText, *clickViewIds)
 
     override fun showError(
         layoutId: Int,
@@ -87,7 +95,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes hintTextId: Int,
         hintText: String?,
         @IdRes vararg clickViewIds: Int
-    ) = showError(context.inflateView(layoutId), layoutParams, hintTextId, hintText ,* clickViewIds)
+    ) = showError(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
 
     override fun showNoNetwork(
         view: View?,
@@ -105,8 +113,7 @@ class LinearStateLayout : LinearLayoutCompat, IStateLayout {
         @IdRes vararg clickViewIds: Int
     ) = showNoNetworkView(context.inflateView(layoutId), layoutParams,hintTextId,hintText, *clickViewIds)
 
-    override fun showStateView(state: Int) =
-        showStateLayout(state)
+    override fun showStateView(state: Int) = showStateLayout(state)
 
     override fun onFinishInflate() {
         super.onFinishInflate()

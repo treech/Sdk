@@ -460,6 +460,7 @@ internal interface IStateLayout {
         children.forEach {
             it.visibility = if (it.tag == status) View.VISIBLE else View.GONE
         }
+        changeViewStatus(status)
     }
 
     fun ViewGroup.showStateLayout(status: Int) {

@@ -4,8 +4,8 @@ apply plugin: 'maven-publish'
 
 task binaryJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
 
-    baseName = project.archiveBaseName
-    version = project.publishVersion
+    archiveBaseName = project.archiveBaseName
+    archiveVersion = project.publishVersion
 
     def javaClassDir = [project.buildDir.absolutePath + "/intermediates/javac/release/classes"]
     def kotlinClassDir = [project.buildDir.absolutePath + "/tmp/kotlin-classes/release"]
@@ -18,9 +18,9 @@ task binaryJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    baseName = project.archiveBaseName
-    version = project.publishVersion
-    classifier = 'sources'
+    archiveBaseName = project.archiveBaseName
+    archiveVersion = project.publishVersion
+    archiveClassifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
@@ -30,9 +30,9 @@ task javadoc(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    baseName = project.archiveBaseName
-    version = project.publishVersion
+    archiveClassifier = 'javadoc'
+    archiveBaseName = project.archiveBaseName
+    archiveVersion = project.publishVersion
     from javadoc.destinationDir
 }
 

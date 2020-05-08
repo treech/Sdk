@@ -1,2 +1,4 @@
-include ':app', ':multistatelayout'
 rootProject.name = 'MultiStateLayout'
+include ':app',
+        ':multistatelayout',
+        ':itemdecoration'

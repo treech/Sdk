@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'android-aspectjx'
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    sourceSets {
+        main.res.srcDirs = ['src/main/res', 'src/main/res-public']
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFileName != null && output.outputFileName.endsWith('.aar')) {
+                if (variant.buildType.name == 'release') {
+                    output.outputFileName = "${project.aarArchiveName}.aar"
+                }
+            }
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.aspectj:aspectjrt:1.9.5'
+    implementation 'org.javassist:javassist:3.27.0-GA'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.2.0'
+}
+
+ext {
+    archiveBaseName = 'annotation'
+    userOrg = 'yeguoqiang6'
+    repoName = 'maven'
+    groupId = 'com.ygq.sdk'
+    //package name
+    artifactId = 'annotation'
+    desc = 'sdk for annotation library'
+    webUrl = 'https://github.com/yeguoqiang/Sdk'
+    publishVersion = "${versionMajor}.${versionMinor}.${versionPatch}"
+    aarArchiveName = "${archiveBaseName}-${publishVersion}"
+}
+
+
+apply from: '../bintray-aar.gradle'

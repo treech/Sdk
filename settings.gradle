@@ -2,3 +2,4 @@ rootProject.name = 'MultiStateLayout'
 include ':app',
         ':multistatelayout',
         ':itemdecoration'
+include ':annotation'

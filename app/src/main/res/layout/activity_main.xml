@@ -29,4 +29,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ConstraintStatusView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="6dp">
+
+        <Button
+            android:id="@+id/singleClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="防抖" />
+
+        <Button
+            android:id="@+id/singleClick2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="防抖" />
+
+        <Button
+            android:id="@+id/singleClick3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不防抖" />
+    </LinearLayout>
+
 </LinearLayout>

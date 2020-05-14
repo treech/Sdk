@@ -314,6 +314,7 @@ internal interface IStateLayout {
         @IdRes hintTextId: Int = loadingInfo.hintId,
         hintText: String? = null
     ) {
+        removeAllViews()
         if (loadingView == null) {
             loadingView = if (view == null) {
                 checkLayoutId(loadingInfo.layoutId)
@@ -344,6 +345,7 @@ internal interface IStateLayout {
         hintText: String? = null,
         vararg clickViewIds: Int
     ) {
+        removeAllViews()
         if (emptyView == null) {
             emptyView = if (view == null) {
                 checkLayoutId(emptyInfo.layoutId)
@@ -387,6 +389,7 @@ internal interface IStateLayout {
         hintText: String?,
         vararg clickViewIds: Int
     ) {
+        removeAllViews()
         if (errorView == null) {
             errorView = if (view == null) {
                 checkLayoutId(errorInfo.layoutId)
@@ -421,6 +424,7 @@ internal interface IStateLayout {
         hintText: String?,
         vararg clickViewIds: Int
     ) {
+        removeAllViews()
         if (noNetworkView == null) {
             noNetworkView = if (view == null) {
                 checkLayoutId(noNetworkInfo.layoutId)
@@ -448,7 +452,6 @@ internal interface IStateLayout {
         }
         showViewByState(STATE_NO_NETWORK)
     }
-
 
     private fun checkLayoutId(@LayoutRes layoutId: Int) {
         if (layoutId == NULL_RESOURCE_ID) {

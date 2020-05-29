@@ -314,22 +314,22 @@ internal interface IStateLayout {
         @IdRes hintTextId: Int = loadingInfo.hintId,
         hintText: String? = null
     ) {
-        removeAllViews()
-        if (loadingView == null) {
-            loadingView = if (view == null) {
+        loadingView?.let {
+            if (view != null && it.tag == null) {
+                removeView(it)
+                view.tag = STATE_LOADING
+                addView(view, 0, layoutParams)
+                loadingView = view
+            }
+        } ?: let {
+            val dynamicView = if (view == null) {
                 checkLayoutId(loadingInfo.layoutId)
                 context.inflateView(loadingInfo.layoutId)
             } else view
-            loadingView!!.tag = STATE_LOADING
+            dynamicView.tag = STATE_LOADING
             viewTags.add(STATE_LOADING)
-            addView(loadingView, 0, layoutParams)
-        } else {
-            if (view != null) {
-                removeView(loadingView)
-                loadingView = view
-                loadingView!!.tag = STATE_LOADING
-                addView(loadingView, 0, layoutParams)
-            }
+            addView(dynamicView, 0, layoutParams)
+            loadingView = dynamicView
         }
         if (hintTextId.isLegalResId && hintText != null) {
             loadingView!!.findViewById<TextView>(hintTextId).text = hintText
@@ -345,22 +345,22 @@ internal interface IStateLayout {
         hintText: String? = null,
         vararg clickViewIds: Int
     ) {
-        removeAllViews()
-        if (emptyView == null) {
-            emptyView = if (view == null) {
+        emptyView?.let {
+            if (view != null && it.tag == null) {
+                removeView(it)
+                view.tag = STATE_EMPTY
+                addView(view, 0, layoutParams)
+                emptyView = view
+            }
+        } ?: let {
+            val dynamicView = if (view == null) {
                 checkLayoutId(emptyInfo.layoutId)
                 context.inflateView(emptyInfo.layoutId)
             } else view
-            emptyView!!.tag = STATE_EMPTY
+            dynamicView.tag = STATE_EMPTY
             viewTags.add(STATE_EMPTY)
-            addView(emptyView, 0, layoutParams)
-        } else {
-            if (view != null) {
-                removeView(loadingView)
-                emptyView = view
-                emptyView!!.tag = STATE_EMPTY
-                addView(emptyView, 0, layoutParams)
-            }
+            addView(dynamicView, 0, layoutParams)
+            emptyView = dynamicView
         }
         //设置点击事件
         emptyView!!.setOnChildViewClickListener(
@@ -389,22 +389,22 @@ internal interface IStateLayout {
         hintText: String?,
         vararg clickViewIds: Int
     ) {
-        removeAllViews()
-        if (errorView == null) {
-            errorView = if (view == null) {
+        errorView?.let {
+            if (view != null && it.tag == null) {
+                removeView(it)
+                view.tag = STATE_ERROR
+                addView(view, 0, layoutParams)
+                errorView = view
+            }
+        } ?: let {
+            val dynamicView = if (view == null) {
                 checkLayoutId(errorInfo.layoutId)
                 context.inflateView(errorInfo.layoutId)
             } else view
-            errorView!!.tag = STATE_ERROR
+            dynamicView.tag = STATE_ERROR
             viewTags.add(STATE_ERROR)
-            addView(errorView, 0, layoutParams)
-        } else {
-            if (view != null) {
-                removeView(errorView)
-                errorView = view
-                errorView!!.tag = STATE_ERROR
-                addView(errorView, 0, layoutParams)
-            }
+            addView(dynamicView, 0, layoutParams)
+            errorView = dynamicView
         }
         //设置点击事件
         errorView!!.setOnChildViewClickListener(
@@ -424,22 +424,22 @@ internal interface IStateLayout {
         hintText: String?,
         vararg clickViewIds: Int
     ) {
-        removeAllViews()
-        if (noNetworkView == null) {
-            noNetworkView = if (view == null) {
+        noNetworkView?.let {
+            if (view != null && it.tag == null) {
+                removeView(it)
+                view.tag = STATE_NO_NETWORK
+                addView(view, 0, layoutParams)
+                noNetworkView = view
+            }
+        } ?: let {
+            val dynamicView = if (view == null) {
                 checkLayoutId(noNetworkInfo.layoutId)
                 context.inflateView(noNetworkInfo.layoutId)
             } else view
-            noNetworkView!!.tag = STATE_NO_NETWORK
+            dynamicView.tag = STATE_NO_NETWORK
             viewTags.add(STATE_NO_NETWORK)
-            addView(noNetworkView, 0, layoutParams)
-        } else {
-            if (view != null) {
-                removeView(noNetworkView)
-                noNetworkView = view
-                noNetworkView!!.tag = STATE_NO_NETWORK
-                addView(noNetworkView, 0, layoutParams)
-            }
+            addView(dynamicView, 0, layoutParams)
+            noNetworkView = dynamicView
         }
         //设置点击事件
         noNetworkView!!.setOnChildViewClickListener(
